@@ -57,9 +57,9 @@ const iPhoneModels: IPhoneStockInfoArr = [
   // { id: 'MLK63ZP' }, // iPhone 13 Mini Starlight 256 GB
   // { id: 'MLKC3ZP' }, // iPhone 13 Mini Starlight 512 GB
 
-  { id: 'MNFF3ZP' }, // iPhone 13 Mini Green 128 GB
-  { id: 'MNFG3ZP' }, // iPhone 13 Mini Green 256 GB
-  { id: 'MNFH3ZP' }, // iPhone 13 Mini Green 512 GB
+  // { id: 'MNFF3ZP' }, // iPhone 13 Mini Green 128 GB
+  // { id: 'MNFG3ZP' }, // iPhone 13 Mini Green 256 GB
+  // { id: 'MNFH3ZP' }, // iPhone 13 Mini Green 512 GB
 
   // { id: 'MLK33ZP' }, // iPhone 13 Mini Red 128 GB
   // { id: 'MLK83ZP' }, // iPhone 13 Mini Red 256 GB
@@ -73,9 +73,9 @@ const iPhoneModels: IPhoneStockInfoArr = [
   // { id: 'MLQ83ZP' }, // iPhone 13 Pink 256 GB
   // { id: 'MLQE3ZP' }, // iPhone 13 Pink 512 GB
 
-  { id: 'MLPF3ZP' }, // iPhone 13 Midnight 128 GB
-  { id: 'MLQ63ZP' }, // iPhone 13 Midnight 256 GB
-  { id: 'MLQC3ZP' }, // iPhone 13 Midnight 512 GB
+  // { id: 'MLPF3ZP' }, // iPhone 13 Midnight 128 GB
+  // { id: 'MLQ63ZP' }, // iPhone 13 Midnight 256 GB
+  // { id: 'MLQC3ZP' }, // iPhone 13 Midnight 512 GB
 
   // { id: 'MLPG3ZP' }, // iPhone 13 Starlight 128 GB
   // { id: 'MLQ73ZP' }, // iPhone 13 Starlight 256 GB
@@ -149,20 +149,20 @@ const iPhoneModels: IPhoneStockInfoArr = [
   // { id: 'MQ1M3ZP' }, // iPhone 14 Pro Space Black 512 GB
   // { id: 'MQ2G3ZP' }, // iPhone 14 Pro Space Black 1 TB
 
-  { id: 'MQ9T3ZP' }, // iPhone 14 Pro Max Deep Purple 128 GB
-  { id: 'MQ9X3ZP' }, // iPhone 14 Pro Max Deep Purple 256 GB
-  { id: 'MQAM3ZP' }, // iPhone 14 Pro Max Deep Purple 512 GB
-  { id: 'MQC53ZP' }, // iPhone 14 Pro Max Deep Purple 1 TB
+  // { id: 'MQ9T3ZP' }, // iPhone 14 Pro Max Deep Purple 128 GB
+  // { id: 'MQ9X3ZP' }, // iPhone 14 Pro Max Deep Purple 256 GB
+  // { id: 'MQAM3ZP' }, // iPhone 14 Pro Max Deep Purple 512 GB
+  // { id: 'MQC53ZP' }, // iPhone 14 Pro Max Deep Purple 1 TB
 
-  { id: 'MQ9R3ZP' }, // iPhone 14 Pro Max Gold 128 GB
-  { id: 'MQ9W3ZP' }, // iPhone 14 Pro Max Gold 256 GB
-  { id: 'MQAJ3ZP' }, // iPhone 14 Pro Max Gold 512 GB
-  { id: 'MQC43ZP' }, // iPhone 14 Pro Max Gold 1 TB
+  // { id: 'MQ9R3ZP' }, // iPhone 14 Pro Max Gold 128 GB
+  // { id: 'MQ9W3ZP' }, // iPhone 14 Pro Max Gold 256 GB
+  // { id: 'MQAJ3ZP' }, // iPhone 14 Pro Max Gold 512 GB
+  // { id: 'MQC43ZP' }, // iPhone 14 Pro Max Gold 1 TB
 
-  { id: 'MQ9Q3ZP' }, // iPhone 14 Pro Max Silver 128 GB
-  { id: 'MQ9V3ZP' }, // iPhone 14 Pro Max Silver 256 GB
-  { id: 'MQAH3ZP' }, // iPhone 14 Pro Max Silver 512 GB
-  { id: 'MQC33ZP' }, // iPhone 14 Pro Max Silver 1 TB
+  // { id: 'MQ9Q3ZP' }, // iPhone 14 Pro Max Silver 128 GB
+  // { id: 'MQ9V3ZP' }, // iPhone 14 Pro Max Silver 256 GB
+  // { id: 'MQAH3ZP' }, // iPhone 14 Pro Max Silver 512 GB
+  // { id: 'MQC33ZP' }, // iPhone 14 Pro Max Silver 1 TB
 
   { id: 'MQ9P3ZP' }, // iPhone 14 Pro Max Space Black 128 GB
   { id: 'MQ9U3ZP' }, // iPhone 14 Pro Max Space Black 256 GB
