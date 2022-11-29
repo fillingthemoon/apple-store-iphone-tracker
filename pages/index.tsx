@@ -3,7 +3,7 @@ import Head from 'next/head'
 import type { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 
-import { Stack, Table, Title, Alert, Select } from '@mantine/core'
+import { Stack, Table, Title, Alert, Select, Button } from '@mantine/core'
 
 import allIPhones from '../allIPhones'
 import { getIPhoneProductAndStockInfo } from '../getIPhoneProductAndStockInfo'
@@ -112,9 +112,14 @@ const Home: NextPage = (props: any) => {
           maxDropdownHeight={600}
         />
         {iPhoneProductAndStockInfo.length <= 0 ? (
-          <Alert m={10} title="Error" color="red">
-            {`O no, you've encountered an error, please refresh or try again later!`}
-          </Alert>
+          <React.Fragment>
+            <Alert title="Error" color="red">
+              {`O no, you've encountered an error, please click the refresh button below or try again later!`}
+            </Alert>
+            <Button
+              onClick={() => handleSelectIPhoneType(selectedIPhone.productId)}
+            >{`Refresh`}</Button>
+          </React.Fragment>
         ) : (
           <Table striped>
             <thead>
