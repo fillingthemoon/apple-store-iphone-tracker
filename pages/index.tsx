@@ -1,7 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import type { GetServerSidePropsContext } from 'next'
+import { useRouter } from 'next/router'
 
-import { Stack, Table, Title, Alert, Select, Text } from '@mantine/core'
+import { Stack, Table, Title, Alert, Select } from '@mantine/core'
 
 import allIPhones from '../allIPhones'
 import { getIPhoneProductAndStockInfo } from '../getIPhoneProductAndStockInfo'
@@ -11,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import theme from '../theme'
 const { available, unavailable } = theme.colors
 
-const iPhoneModels = allIPhones.reduce((prev: any, next: any) => {
+const iPhoneTypes = allIPhones.reduce((prev: any, next: any) => {
   if (
     prev[prev.length - 1]?.model !== next.model ||
     prev[prev.length - 1]?.color !== next.color
@@ -42,9 +44,11 @@ const Cols = (props: any) => {
 }
 
 const Home: NextPage = (props: any) => {
-  const { iPhoneProductAndStockInfo } = props
+  const { iPhoneProductAndStockInfo, queryIPhoneType } = props
 
   const [appleStores, setAppleStores] = useState([])
+
+  const router = useRouter()
 
   useEffect(() => {
     if (iPhoneProductAndStockInfo.length > 0) {
@@ -56,7 +60,7 @@ const Home: NextPage = (props: any) => {
   if (iPhoneProductAndStockInfo.length <= 0) {
     return (
       <Alert m={10} title="Error" color="red">
-        {`O no, you've encountered an error, please try again later!`}
+        {`O no, you've encountered an error, please refresh or try again later!`}
       </Alert>
     )
   }
@@ -94,8 +98,17 @@ const Home: NextPage = (props: any) => {
     )
   })
 
-  const handleSelectIPhone = async () => {
-    await getIPhoneProductAndStockInfo(iPhoneModels[1])
+  const handleSelectIPhoneType = async (event: any) => {
+    const model = event.match(/^[^\(]+/)[0].trim()
+    const color = event.match(/(?<=\().*(?=\))/)[0].trim()
+
+    router.push({
+      pathname: router.pathname,
+      query: {
+        model,
+        color,
+      },
+    })
   }
 
   return (
@@ -109,13 +122,19 @@ const Home: NextPage = (props: any) => {
         <Title>{`Apple Store iPhone Tracker`}</Title>
         <Select
           label=""
-          defaultValue={`${iPhoneModels[0].model} (${iPhoneModels[0].color})`}
+          defaultValue={
+            queryIPhoneType.model && queryIPhoneType.color
+              ? `${queryIPhoneType.model} (${queryIPhoneType.color})`
+              : `${iPhoneTypes[0].model} (${iPhoneTypes[0].color})`
+          }
           searchable
           nothingFound="No options"
-          data={iPhoneModels.map(
-            (iPhone: any) => `${iPhone.model} (${iPhone.color})`
-          )}
-          onChange={handleSelectIPhone}
+          data={iPhoneTypes.map((iPhone: any) => ({
+            value: `${iPhone.model} (${iPhone.color})`,
+            label: `${iPhone.model} (${iPhone.color})`,
+          }))}
+          onChange={handleSelectIPhoneType}
+          maxDropdownHeight={600}
         />
         <Table striped>
           <thead>
@@ -128,14 +147,19 @@ const Home: NextPage = (props: any) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { model, color } = context.query
+
+  const queryIPhoneType = { model: model || null, color: color || null }
+
   const iPhoneProductAndStockInfo = await getIPhoneProductAndStockInfo(
-    iPhoneModels[1]
+    model && color ? queryIPhoneType : iPhoneTypes[0]
   )
 
   return {
     props: {
       iPhoneProductAndStockInfo,
+      queryIPhoneType,
     },
   }
 }
