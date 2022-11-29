@@ -13,20 +13,6 @@ import React, { useEffect, useState } from 'react'
 import theme from '../theme'
 const { available, unavailable } = theme.colors
 
-const iPhoneTypes = allIPhones.reduce((prev: any, next: any) => {
-  if (
-    prev[prev.length - 1]?.model !== next.model ||
-    prev[prev.length - 1]?.color !== next.color
-  ) {
-    prev.push({
-      model: next.model,
-      color: next.color,
-    })
-  }
-
-  return prev
-}, [])
-
 const Cols = (props: any) => {
   const { appleStores }: { appleStores: any[] } = props
 
@@ -44,11 +30,14 @@ const Cols = (props: any) => {
 }
 
 const Home: NextPage = (props: any) => {
-  const { iPhoneProductAndStockInfo, queryIPhoneType } = props
-
+  const { iPhoneProductAndStockInfo, queryProductId } = props
   const [appleStores, setAppleStores] = useState([])
 
   const router = useRouter()
+
+  const selectedIPhone: any = allIPhones.find(
+    (iPhone) => iPhone.productId === queryProductId
+  )
 
   useEffect(() => {
     if (iPhoneProductAndStockInfo.length > 0) {
@@ -56,14 +45,6 @@ const Home: NextPage = (props: any) => {
       setAppleStores(stores.map((store: any) => store.address))
     }
   }, [])
-
-  if (iPhoneProductAndStockInfo.length <= 0) {
-    return (
-      <Alert m={10} title="Error" color="red">
-        {`O no, you've encountered an error, please refresh or try again later!`}
-      </Alert>
-    )
-  }
 
   const rows = iPhoneProductAndStockInfo.map((iPhoneRow: any, i: number) => {
     const { productId, model, productInfo, stores } = iPhoneRow
@@ -99,14 +80,12 @@ const Home: NextPage = (props: any) => {
   })
 
   const handleSelectIPhoneType = async (event: any) => {
-    const model = event.match(/^[^\(]+/)[0].trim()
-    const color = event.match(/(?<=\().*(?=\))/)[0].trim()
+    const productId = event
 
     router.push({
       pathname: router.pathname,
       query: {
-        model,
-        color,
+        productId,
       },
     })
   }
@@ -122,44 +101,46 @@ const Home: NextPage = (props: any) => {
         <Title>{`Apple Store iPhone Tracker`}</Title>
         <Select
           label=""
-          defaultValue={
-            queryIPhoneType.model && queryIPhoneType.color
-              ? `${queryIPhoneType.model} (${queryIPhoneType.color})`
-              : `${iPhoneTypes[0].model} (${iPhoneTypes[0].color})`
-          }
+          defaultValue={selectedIPhone.productId}
           searchable
           nothingFound="No options"
-          data={iPhoneTypes.map((iPhone: any) => ({
-            value: `${iPhone.model} (${iPhone.color})`,
-            label: `${iPhone.model} (${iPhone.color})`,
+          data={allIPhones.map((iPhone: any) => ({
+            value: iPhone.productId,
+            label: `${iPhone.model} (${iPhone.color}) - ${iPhone.capacity}`,
           }))}
           onChange={handleSelectIPhoneType}
           maxDropdownHeight={600}
         />
-        <Table striped>
-          <thead>
-            <Cols appleStores={appleStores} />
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
+        {iPhoneProductAndStockInfo.length <= 0 ? (
+          <Alert m={10} title="Error" color="red">
+            {`O no, you've encountered an error, please refresh or try again later!`}
+          </Alert>
+        ) : (
+          <Table striped>
+            <thead>
+              <Cols appleStores={appleStores} />
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        )}
       </Stack>
     </div>
   )
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { model, color } = context.query
+  const { productId } = context.query
 
-  const queryIPhoneType = { model: model || null, color: color || null }
+  const queryProductId: any = productId || allIPhones[0].productId
 
   const iPhoneProductAndStockInfo = await getIPhoneProductAndStockInfo(
-    model && color ? queryIPhoneType : iPhoneTypes[0]
+    queryProductId
   )
 
   return {
     props: {
       iPhoneProductAndStockInfo,
-      queryIPhoneType,
+      queryProductId,
     },
   }
 }

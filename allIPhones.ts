@@ -161,7 +161,7 @@ const allIPhones: IPhoneArr = [
   }, // iPhone 12 Black 256 GB
 
   {
-    productId: 'MGJJ3ZP',
+    productId: 'MGJ73ZP',
     model: '12',
     color: 'Red',
     capacity: '64 GB',

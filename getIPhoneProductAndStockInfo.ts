@@ -18,12 +18,11 @@ const getTimeRemaining = (timestamp: any, cooldownTime: any) => {
   }
 }
 
-export const getIPhoneProductAndStockInfo = async (iPhoneType: any) => {
-  const { model, color }: { model: string; color: string } = iPhoneType
+export const getIPhoneProductAndStockInfo = async (productId: string) => {
   try {
     const iPhoneProductAndStockInfoPromiseArr: any[] = []
     allIPhones.forEach((iPhone) => {
-      if (iPhone.model === model && iPhone.color === color) {
+      if (iPhone.productId === productId) {
         const iPhoneStockInfo = axios.get(
           `https://www.apple.com/sg/shop/fulfillment-messages?pl=true&mts.0=regular&mts.1=compact&parts.0=${iPhone.productId}/A&searchNearby=true&store=R669`
         )
