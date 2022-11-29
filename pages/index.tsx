@@ -48,7 +48,7 @@ const Home: NextPage = (props: any) => {
   }
 
   const rows = iPhoneProductAndStockInfo.map((iPhoneRow: any, i: number) => {
-    const { id, model, productInfo, stores } = iPhoneRow
+    const { productId, model, productInfo, stores } = iPhoneRow
     const {
       dimensionColor: color,
       dimensionCapacity: capacity,
@@ -57,7 +57,7 @@ const Home: NextPage = (props: any) => {
 
     return (
       <tr key={i}>
-        {/* <td>{id}</td> */}
+        {/* <td>{productId}</td> */}
         {[model, color, capacity, price].map((colName, i) => (
           <td key={i}>{colName}</td>
         ))}
